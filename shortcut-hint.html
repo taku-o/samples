@@ -1,0 +1,66 @@
+<html>
+<head>
+    <style>
+        button {
+            width: 200px;
+            height: 50px;
+        }
+
+        :root {
+            --shortcut-hint-delay: 1s;
+            --shortcut-hint-opacity: 0;
+        }
+        .shortcut-hint-container {
+            position: relative;
+        }
+        .shortcut-hint {
+            position: absolute;
+            width: 10px;
+            left: 3px;
+            top: calc(100% - 12px);
+            z-index: 1;
+            vertical-align: middle;
+            text-align: center;
+            line-height: 10px;
+            font-size: 9px;
+            color: white;
+            background-color: black;
+            border-radius: 2px;
+            transition-delay: var(--shortcut-hint-delay);
+            opacity: var(--shortcut-hint-opacity);
+        }
+    </style>
+
+    <script>
+        var hintDisplayed = false;
+
+        window.addEventListener('keydown', function(e) {
+          if (e.metaKey) {
+            hintDisplayed = true;
+            document.documentElement.style.setProperty('--shortcut-hint-delay', '1s');
+            document.documentElement.style.setProperty('--shortcut-hint-opacity', '1');
+          }
+        });
+        window.addEventListener('keyup', function(e) {
+          if (hintDisplayed) {
+            hintDisplayed = false;
+            document.documentElement.style.setProperty('--shortcut-hint-delay', '0s');
+            document.documentElement.style.setProperty('--shortcut-hint-opacity', '0');
+          }
+        });
+        window.addEventListener('blur', (e) => {
+          if (hintDisplayed) {
+            hintDisplayed = false;
+            document.documentElement.style.setProperty('--shortcut-hint-delay', '0s');
+            document.documentElement.style.setProperty('--shortcut-hint-opacity', '0');
+          }
+        });
+    </script>
+</head>
+<body>
+    <div class="shortcut-hint-container">
+        <button>保存ボタン</button>
+        <label class="shortcut-hint">S</label>
+    </div>
+</body>
+</html>
