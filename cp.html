@@ -1,0 +1,47 @@
+<html>
+<head>
+    <style>
+        input {
+            width: 500px;
+            height: 30px;
+        }
+        button {
+            width: 100px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" name="a" id="a" value=""><button id="acp" name="a" class="cpbtn">copy A</button><br>
+    <br>
+    <input type="text" name="b" id="b" value=""><button id="bcp" name="b" class="cpbtn">copy B</button><br>
+    <br>
+    <input type="text" name="c" id="c" value=""><button id="ccp" name="c" class="cpbtn">copy C</button><br>
+</body>
+
+<script>
+    var search = document.location.search.substring(1);
+    var queries = search.split('&');
+    for (var i = 0; i < queries.length; i++) {
+        var qs = queries[i].split('=');
+        var name = decodeURIComponent(qs[0]);
+        var value = decodeURIComponent(qs[1]);
+
+        var textfield = document.getElementById(name);
+        textfield.value = value;
+    }
+</script>
+
+<script>
+    var btns = document.getElementsByClassName('cpbtn');
+    for (var i = 0; i < btns.length; i++) {
+        var btn = btns[i];
+        btn.addEventListener('click', function(e) {
+            var textfield = document.getElementById(e.srcElement.name);
+            textfield.select();
+            document.execCommand("copy");
+        });
+    }
+</script>
+
+</html>
